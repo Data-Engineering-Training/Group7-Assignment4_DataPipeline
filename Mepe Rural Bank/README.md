@@ -6,13 +6,13 @@ This project generates synthetic bank data using the Faker library in Python. It
 
 ## Prerequisites
 
-- Python 3.1
+- Python
 - Docker
 
 ## Installation
 
 1. Clone this repository to your local machine.
-2. Install the required Python packages:  `pip install -r requirements.txt`.
+2. Install the required Python packages:  `pip install -r requirements.txt`. 
    You can use a virtual environment for isolating these dependencies from other projects on your system.
    
 ## Running the Application Locally
