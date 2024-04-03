@@ -1,0 +1,74 @@
+Retrieve the total number of customers in the database.
+    SELECT COUNT(*) AS total_customers
+    FROM customers;
+
+
+List all active accounts along with their respective balances.
+    SELECT "Account_ID", "Balance"
+    FROM accounts
+    WHERE "Status" = 'Active';
+
+
+Find the total amount deposited into savings accounts in the last month.
+    SELECT SUM("Amount") AS total_deposit
+    FROM transactions
+    WHERE "Account_ID" IN (
+        SELECT "Account_ID"
+        FROM accounts
+        WHERE "Account_Type" = 'Savings'
+    )
+    AND "Transaction_Date" >= DATE_TRUNC('month', CURRENT_DATE) - INTERVAL '1 month'
+    AND "Transaction_Date" < DATE_TRUNC('month', CURRENT_DATE);
+
+
+Show the top 5 customers with the highest account balances.
+    SELECT c."Customer_ID", CONCAT(c."First_Name", ' ', c."Last_Name") AS "Customer_Name", SUM(a."Balance") AS "Total_Balance"
+    FROM customers c
+    JOIN accounts a ON c."Customer_ID" = a."Customer_ID"
+    GROUP BY c."Customer_ID", c."First_Name", c."Last_Name"
+    ORDER BY "Total_Balance" DESC
+    LIMIT 5;
+
+    
+Identify the average loan amount for each loan type (e.g., Mortgage, Personal, Auto).
+    SELECT l."Loan_Type", AVG(l."Amount") AS "Average_Loan_Amount"
+    FROM loans l
+    GROUP BY l."Loan_Type";
+
+
+Display the number of transactions made by each customer in the past week.
+    SELECT c."Customer_ID", c."First_Name", c."Last_Name", COUNT(t."Transaction_ID") AS "Number_of_Transactions"
+    FROM customers c
+    LEFT JOIN accounts a ON c."Customer_ID" = a."Customer_ID"
+    LEFT JOIN transactions t ON a."Account_ID" = t."Account_ID"
+    WHERE t."Transaction_Date" >= CURRENT_DATE - INTERVAL '1 week'
+    GROUP BY c."Customer_ID", c."First_Name", c."Last_Name"
+    ORDER BY "Number_of_Transactions" DESC;
+
+
+Find the total interest earned on all active loans.
+    SELECT SUM(l."Interest_Rate") AS "Total_Interest_Earned"
+    FROM loans l
+    WHERE l."Status" = 'Active';
+
+
+List the branches along with the number of employees managing each branch.
+    SELECT b."Branch_Name", COUNT(e."Employee_ID") AS "Number_of_Employees"
+    FROM branches b
+    LEFT JOIN employees e ON b."Branch_ID" = e."Employee_ID"
+    GROUP BY b."Branch_Name"
+    ORDER BY "Number_of_Employees" DESC;
+
+
+Show the average salary of employees by position (e.g., Manager, Loan Officer, Teller).
+    SELECT e."Position", AVG(e."Salary") AS "Average_Salary"
+    FROM employees e
+    GROUP BY e."Position";
+
+
+Identify customers who have both active accounts and active loans.
+    SELECT c."Customer_ID", c."First_Name", c."Last_Name", a."Account_ID", l."Amount"
+    FROM customers c
+    JOIN "Account" a ON c."Customer_ID" = a."Customer_ID"
+    JOIN loans l ON c."Customer_ID" = l."Customer_ID"
+    WHERE a."Status" = 'Active' AND l."Status" = 'Active';
