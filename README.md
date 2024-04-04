@@ -1,9 +1,11 @@
 **Faker Data Generator and ETL Pipeline for Company Data**
+
 This project utilizes Python's Faker library to generate 100,000 synthetic records for 10 different companies. 
 An ETL (Extract, Transform, Load) pipeline has been built to extract data from CSV files, transform it, and ingest it into a PostgreSQL database. 
 This process has been implemented individually for each of the 10 companies.
 
 **Table of Contents**
+
     About
     Features
     Installation
