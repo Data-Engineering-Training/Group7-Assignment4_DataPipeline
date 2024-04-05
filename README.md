@@ -59,6 +59,7 @@ Contributors for this project are:
     Israel Ansah Owusu
     Francisca Frimpomaa Amponsah
     Florentyna Anima Adu Boakye Yiadom
+    Ruth Amanquah
     Nathaniel Yeboah Frimpong
     Vanessa Bedzra
 
